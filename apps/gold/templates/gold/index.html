@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'gold/css/style.css' %}">
+    <title>Document</title>
+</head>
+
+<body class="wrapper container-fluid">
+    <div class="header d-flex">
+        <div class="row justify-content-between">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="score col-1">Your Gold:</div>
+                <div class="score col-1">{{ request.session.gold }}</div>
+                <form action="/reset" method="POST" class="form-inline my-2 my-lg-0 col-4">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Reset</button>
+                </form>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="location" class="col-3">
+            <h2>Farm</h2>
+            <h3>(earns 10-20 golds)</h3>
+            <a href="/farm" class="col-5 form-group btn btn-warning">Farm Gold!</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="location" class="col-3">
+            <h2>Cave</h2>
+            <h3>(earns 5-10 golds)</h3>
+            <a href="/cave" class="col-5 form-group btn btn-warning">Farm Gold!</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="location" class="col-3">
+            <h2>House</h2>
+            <h3>(earns 2-5 golds)</h3>
+            <a href="/house" class="col-5 form-group btn btn-warning">Farm Gold!</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="location" class="col-3">
+            <h2>Casino</h2>
+            <h3>(earns/takes 0-50 golds)</h3>
+            <a href="/casino" class="col-5 form-group btn btn-warning">Farm Gold!</a>
+        </div>
+    </div>
+
+    <div class="container-fluid overflow">
+        {% for activity in request.session.activities %}
+        {{ activity | safe }}
+        {% endfor %}
+    </div>
+</body>
+
+</html>
